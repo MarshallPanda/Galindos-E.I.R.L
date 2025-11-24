@@ -3,7 +3,7 @@
     --secondary-color: #e6b32e; /* Dorado/Amarillo transporte */
     --light-bg: #f8f9fa;
     --dark-text: #333;
-    --hero-height: 90vh;
+    --hero-height: 90vh; /* Altura de la pantalla inicial */
 }
 
 body {
@@ -45,21 +45,13 @@ body {
     color: var(--primary-color);
 }
 
-/* CARRUSEL HERO CONFIGURACIÓN */
+/* CARRUSEL HERO */
 .hero-wrapper {
     position: relative;
     height: var(--hero-height);
     overflow: hidden;
-    padding-top: 60px; /* Espacio para el navbar fijo */
-}
-
-#heroCarousel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+    padding-top: 60px;
+    background-color: #000;
 }
 
 .carousel-item {
@@ -71,6 +63,15 @@ body {
     object-position: center;
     height: 100%;
     width: 100%;
+    /* Filtro para mejorar fotos: brillo y saturación */
+    filter: brightness(0.9) contrast(1.1) saturate(1.1); 
+    /* Animación de zoom suave */
+    animation: zoomEffect 20s infinite alternate;
+}
+
+@keyframes zoomEffect {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
 }
 
 .hero-overlay {
@@ -79,7 +80,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(13, 44, 90, 0.65); /* Azul con transparencia */
+    /* Degradado oscuro para que se lean las letras blancas */
+    background: linear-gradient(to bottom, rgba(13, 44, 90, 0.4), rgba(13, 44, 90, 0.8));
     z-index: 2;
 }
 
@@ -101,7 +103,7 @@ body {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-/* Estilos Generales */
+/* Títulos de Sección */
 .section-title {
     color: var(--primary-color);
     font-weight: 700;
@@ -118,7 +120,7 @@ body {
     margin: 10px auto;
 }
 
-/* Tarjetas de Servicio */
+/* Tarjetas */
 .service-card {
     border: none;
     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
@@ -179,12 +181,11 @@ footer {
     color: var(--secondary-color);
 }
 
-/* Botón WhatsApp */
-.whatsapp-btn {
+/* --- BOTONES FLOTANTES --- */
+
+.floating-btn {
     position: fixed;
-    bottom: 20px;
     right: 20px;
-    background-color: #25d366;
     color: white;
     border-radius: 50%;
     width: 60px;
@@ -193,15 +194,33 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
     z-index: 1000;
     text-decoration: none;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+}
+.floating-btn:hover {
+    transform: scale(1.1);
+    color: white;
+}
+
+/* Botón WhatsApp (Abajo) */
+.whatsapp-btn {
+    bottom: 20px;
+    background-color: #25d366;
 }
 .whatsapp-btn:hover {
-    transform: scale(1.1);
     background-color: #20ba5a;
-    color: white;
+}
+
+/* Botón Facebook (Arriba del WhatsApp) */
+.facebook-btn {
+    bottom: 95px; /* Calculado para estar encima del otro */
+    background-color: #1877f2;
+    font-size: 26px;
+}
+.facebook-btn:hover {
+    background-color: #0e5a97;
 }
 
 /* Responsivo */
@@ -210,4 +229,15 @@ footer {
         --hero-height: 80vh;
     }
     .hero-title { font-size: 2.2rem; }
+    .hero-img-cover {
+        object-position: center bottom;
+    }
+    .floating-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        right: 15px;
+    }
+    .whatsapp-btn { bottom: 15px; }
+    .facebook-btn { bottom: 80px; }
 }
